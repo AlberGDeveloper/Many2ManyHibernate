@@ -22,7 +22,7 @@ public class AccesoBBDD {
 
 	public static void inicializarConexion() {
 		if (sesion == null) {
-			s = new StandardServiceRegistryBuilder().configure("Luismi.xml").build();
+			s = new StandardServiceRegistryBuilder().configure("HibernatePA.xml").build();
 			sf = new MetadataSources(s).buildMetadata().buildSessionFactory();
 			sesion = sf.openSession();
 		}
