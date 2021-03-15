@@ -29,7 +29,7 @@ public class AccesoBBDD {
 		return null;
 	}
 
-	public static void emparejarProfeAlumno(int id_profesor, String id_alumno) {
+	public static void emparejarProfeAlumno(String id_profesor, String id_alumno) {
 		// TODO Auto-generated method stub
 		
 	}

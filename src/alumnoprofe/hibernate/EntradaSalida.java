@@ -37,20 +37,37 @@ public class EntradaSalida {
 
 
 	public static Alumno pedirAlumno() {
-		// TODO Auto-generated method stub
-		return null;
+		Alumno gafas = new Alumno();
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Introduce el nombre del alumno: ");
+		String nombre = sc.nextLine();
+		gafas.setNombre(nombre);
+		return gafas;
 	}
 
 
-	public static int mostrarProfesores(List<Profesor> clientes) {
-		// TODO Auto-generated method stub
-		return 0;
+	public static String mostrarProfesores(List<Profesor> profesores) {
+		for(Profesor p: profesores)
+		{
+			System.out.println(p.getId()+"-"+p.getNombre());
+		}
+		System.out.println("Escriba el nombre del profesor");
+		Scanner sc=new Scanner(System.in);
+		String nombreprofe=sc.nextLine();
+		return nombreprofe;
+
 	}
 
-
+//Método susceptible a eliminar. No pide mostrar ALUMNOS
 	public static String mostrarAlumnos(List<Alumno> listaalumnos) {
-		// TODO Auto-generated method stub
-		return null;
+		for(Alumno a: listaalumnos)
+		{
+			System.out.println(a.getId()+"-"+a.getNombre());
+		}
+		System.out.println("Escriba el nombre del alumno");
+		Scanner sc=new Scanner(System.in);
+		String nombrealumno=sc.nextLine();
+		return nombrealumno;
 	}
 
 

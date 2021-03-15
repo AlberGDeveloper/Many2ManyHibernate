@@ -16,16 +16,15 @@ public class ClasePrincipal {
 				AccesoBBDD.guardarCliente(profe);
 				break;
 			case 2:
-
 				Alumno alum = EntradaSalida.pedirAlumno();
 				AccesoBBDD.guardarAlumno(alum);
 				break;
 			case 3:
 				List<Profesor> listaprofesores = AccesoBBDD.devolverProfesor();
-				int id_profesor = EntradaSalida.mostrarProfesores(listaprofesores);
+				String nombreprofe = EntradaSalida.mostrarProfesores(listaprofesores);
 				List<Alumno> listaalumnos = AccesoBBDD.devolverAlumnos();
-				String id_alumno = EntradaSalida.mostrarAlumnos(listaalumnos);
-				AccesoBBDD.emparejarProfeAlumno(id_profesor, id_alumno);
+				String nombrealumni = EntradaSalida.mostrarAlumnos(listaalumnos);
+				AccesoBBDD.emparejarProfeAlumno(nombreprofe, nombrealumni);
 				break;
 			case 4:
 				List<Profesor> listaprof = AccesoBBDD.devolverProfesor();
