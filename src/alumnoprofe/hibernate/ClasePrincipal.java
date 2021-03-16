@@ -8,6 +8,7 @@ public class ClasePrincipal {
 	
 	public static void main(String[] args) {
 		int opcion = EntradaSalida.mostrarMenu();
+		AccesoBBDD.inicializarConexion();
 
 		while (opcion != EntradaSalida.SALIR) {
 			switch (opcion) {
@@ -16,7 +17,6 @@ public class ClasePrincipal {
 				AccesoBBDD.guardarProfesor(profe);
 				break;
 			case 2:
-
 				Alumno alum = EntradaSalida.pedirAlumno();
 				AccesoBBDD.guardarAlumno(alum);
 				break;
@@ -24,8 +24,10 @@ public class ClasePrincipal {
 				List<Profesor> listaprofesores = AccesoBBDD.devolverProfesor();
 				int id_profesor = EntradaSalida.mostrarProfesores(listaprofesores);
 				List<Alumno> listaalumnos = AccesoBBDD.devolverAlumnos();
+				Profesor pr = AccesoBBDD.recuperarProfesorPorId(id_profesor);
 				String id_alumno = EntradaSalida.mostrarAlumnos(listaalumnos);
-				AccesoBBDD.emparejarProfeAlumno(id_profesor, id_alumno);
+				pr.setListaalumnos(listaalumnos);
+				AccesoBBDD.emparejarProfeAlumno(id_profesor, id_alumno, pr);
 				break;
 			case 4:
 				List<Profesor> listaprof = AccesoBBDD.devolverProfesor();

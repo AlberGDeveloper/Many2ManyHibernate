@@ -47,6 +47,7 @@ public class EntradaSalida {
 
 
 	public static int mostrarProfesores(List<Profesor> profesores) {
+		//System.out.println(profesores);
 		for(Profesor p: profesores)
 		{
 			System.out.println(p.getId()+"-"+p.getNombre());

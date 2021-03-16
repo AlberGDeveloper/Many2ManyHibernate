@@ -29,7 +29,7 @@ public class AccesoBBDD {
 	}
 
 	public static void guardarProfesor(Profesor profe) {
-		inicializarConexion();
+		// inicializarConexion();
 		Transaction t = sesion.beginTransaction();
 		sesion.save(profe);
 		t.commit();
@@ -37,7 +37,7 @@ public class AccesoBBDD {
 	}
 
 	public static void guardarAlumno(Alumno alum) {
-		inicializarConexion();
+		// inicializarConexion();
 		Transaction t = sesion.beginTransaction();
 		sesion.save(alum);
 		t.commit();
@@ -45,32 +45,32 @@ public class AccesoBBDD {
 	}
 
 	public static List<Alumno> devolverAlumnos() {
-		inicializarConexion();
+		// inicializarConexion();
 		Query consulta = sesion.createQuery("FROM Alumno");
 		List<Alumno> alumnos = consulta.getResultList();
 		return alumnos;
 	}
 
 	public static List<Profesor> devolverProfesor() {
-		inicializarConexion();
+		// inicializarConexion();
 		Query consulta = sesion.createQuery("FROM Profesor");
 		List<Profesor> profesores = consulta.getResultList();
 		return profesores;
 	}
 
 	public static Profesor buscarProfesorPorNombre(String nombre_buscado) {
-		inicializarConexion();
+		// inicializarConexion();
 		Query consulta = sesion.createQuery("FROM Profesor WHERE nombre='" + nombre_buscado + "'");
 		Profesor p = (Profesor) consulta.getSingleResult();
 		return p;
 	}
 
-	public static void emparejarProfeAlumno(int idprofesor, String idalumno) {
-		inicializarConexion();
-		Profesor profe = recuperarProfesorPorId(idprofesor);
+	public static void emparejarProfeAlumno(int id_profesor, String id_alumno, Profesor pr) {
+		// inicializarConexion();
+		//Profesor profe = recuperarProfesorPorId(id_profesor);
 		String query = "from Alumno where id in (:ids)";
-		String[] ids = idalumno.split(",");
-		List<Integer> lista_ids = new ArrayList();
+		String[] ids = id_alumno.split(",");
+		List<Integer> lista_ids = new ArrayList<Integer>();
 		for (String id : ids) {
 			lista_ids.add(Integer.valueOf(id));
 		}
@@ -78,21 +78,32 @@ public class AccesoBBDD {
 		q.setParameter("ids", lista_ids);
 		List<Alumno> lista_alumnos = q.getResultList();
 		List<Profesor> lista_profesores = new ArrayList();
-		lista_profesores.add(profe);
-		profe.setListaalumnos(lista_alumnos);
+		lista_profesores.add(pr);
 		Transaction t = sesion.beginTransaction();
 		for (Alumno a : lista_alumnos) {
 			a.setListaProfesores(lista_profesores);
+			//a.getListaProfesores().add((Profesor) lista_profesores);
 			sesion.update(a);
 		}
-		sesion.update(profe);
+		/**
+		 * for (Profesor p : lista_profesores) { p.setListaalumnos(lista_alumnos);
+		 * 
+		 * }
+		 **/
+		sesion.update(pr);
+
 		t.commit();
 	}
 
-	private static Profesor recuperarProfesorPorId(int idprofesor) {
+	public static Profesor recuperarProfesorPorId(int idprofesor) {
 		Query<Profesor> q = sesion.createQuery("FROM Profesor WHERE id=" + idprofesor);
+		Profesor profesor = (Profesor) q.getResultList().get(0);
+		return profesor;
+	}
+
+	public static Alumno recuperarAlumnoPorId(int id) {
+		Query<Alumno> q = sesion.createQuery("FROM Alumno WHERE id=" + id);
 
 		return q.getSingleResult();
 	}
-
 }
